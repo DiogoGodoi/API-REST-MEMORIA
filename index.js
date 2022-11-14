@@ -36,7 +36,7 @@ app.get('/livros/:pAutor', (req, res) => {
 app.patch('/alterar/:pAutor', (req, res) => {
     try {
         const { autor, titulo, ano } = req.body
-        const parametro = req.params;
+        const parametro = req.params.pAutor;
         listaLivros.alterarLivro(parametro, autor, titulo, ano)
     } catch (error) {
         console.log("Erro")
