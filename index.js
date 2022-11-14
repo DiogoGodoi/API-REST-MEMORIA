@@ -49,13 +49,12 @@ app.patch('/alterar/:pAutor', (req, res) => {
 app.delete('/deletar/:pAutor', (req, res) => {
     try {
         let pAutor = req.params.pAutor
-        let filtro = listaLivros.livros.filter((id) => id.autor !== pAutor)
-        listaLivros.livros = filtro
-        res.json(listaLivros.livros)
+        listaLivros.deletarLivros(pAutor)
     } catch (error) {
-        console.log('Erro')
+        console.log('Erro', error)
     } finally {
-        res.json(listaLivros.livros)
+        let livros = listaLivros.exibirLivros()
+        res.json(livros)
     }
 })
 

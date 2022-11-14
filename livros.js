@@ -23,4 +23,10 @@ const procurarLivros = (parametro) => {
     return procurar;
 }
 
-module.exports = { cadastrarLivros, exibirLivros, procurarLivros, alterarLivro };
+const deletarLivros = (parametro) => {
+    let procurar = livros.find((i) => i.autor !== parametro)
+    livros = procurar
+    return procurar
+}
+
+module.exports = { cadastrarLivros, exibirLivros, procurarLivros, alterarLivro, deletarLivros };
