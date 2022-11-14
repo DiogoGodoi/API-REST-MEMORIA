@@ -7,21 +7,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Exibir
 app.get('/livros', (req, res) => {
-    let lista = listaLivros.livros
-    res.json(lista)
+    let livros = listaLivros.exibirLivros()
+    res.json(livros)
 })
 
 //Cadastrar
 app.post('/cadastrar', (req, res) => {
     try {
         const { autor, titulo, ano } = req.body
-        let livro = { autor: autor, titulo: titulo, ano: ano }
-        listaLivros.livros.push(livro)
+        listaLivros.cadastrarLivros(autor, titulo, ano)
         console.log("Sucesso")
     } catch (ex) {
         console.log("Erro")
     } finally {
-        let lista = listaLivros.livros
+        let lista = listaLivros.exibirLivros()
         res.json(lista)
     }
 })
@@ -29,25 +28,21 @@ app.post('/cadastrar', (req, res) => {
 //Pesquisar por nome
 app.get('/livros/:pAutor', (req, res) => {
     let pAutor = req.params.pAutor
-    let lista = listaLivros.livros
-    let filtro = lista.find((id) => id.autor == pAutor)
-    res.json(filtro)
+    let livro = listaLivros.procurarLivros(pAutor)
+    res.json(livro)
 })
 
 //altetar
 app.patch('/alterar/:pAutor', (req, res) => {
     try {
-        let pAutor = req.params.pAutor
-        let filtro = listaLivros.livros.find((id) => id.autor === pAutor)
         const { autor, titulo, ano } = req.body
-        filtro.autor = autor
-        filtro.titulo = titulo
-        filtro.ano = ano
+        const parametro = req.params;
+        listaLivros.alterarLivro(parametro, autor, titulo, ano)
     } catch (error) {
         console.log("Erro")
     } finally {
-        let lista = listaLivros.livros
-        res.json(lista)
+        let livros = listaLivros.exibirLivros()
+        res.json(livros)
     }
 })
 
