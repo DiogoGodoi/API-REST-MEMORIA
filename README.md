@@ -1,2 +1,2 @@
 # API-REST
-Api rest simples
+Api rest simples armazenando em memória
